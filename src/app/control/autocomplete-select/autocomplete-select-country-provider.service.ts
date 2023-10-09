@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {DataPair} from './data-pair';
-import {Country, getCountryDisplayNameByCountryCode} from "../../util/country";
-import {ControlModule} from "../control.module";
+import { Injectable } from '@angular/core';
+import { DataPair } from './data-pair';
+import { ControlModule } from "../control.module";
+import { getData } from 'country-list';
 
 @Injectable({
   providedIn: ControlModule
@@ -12,16 +12,10 @@ export class AutocompleteSelectCountryProviderService {
   }
 
   public getCountryList(locale: string): DataPair[] {
-    const countryCodes = this.getCountryCodes();
-
-    let countryList: DataPair[] = countryCodes.map((countryCode) => {
-      return new DataPair(getCountryDisplayNameByCountryCode(locale, countryCode), countryCode);
+    let countryList: DataPair[] = getData().map((country) => {
+      return new DataPair(country.name, country.code);
     });
 
     return countryList;
-  }
-
-  private getCountryCodes(): string[] {
-    return Object.values(Country);
   }
 }

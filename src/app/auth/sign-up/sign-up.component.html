@@ -25,7 +25,9 @@
 
             <!-- Create an organization -->
             <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 1">
+                <app-autocomplete-select [values]="countries.getCountryList('en')">
 
+                </app-autocomplete-select>
 
                 <mat-form-field appearance="fill" class="login-box-item">
                     <mat-label i18n>Organization name</mat-label>
