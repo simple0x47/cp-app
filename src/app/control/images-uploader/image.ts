@@ -1,6 +1,6 @@
-import {first, Observable} from "rxjs";
-import {Err, Ok, Result} from "../../core/result";
-import {hashFile$} from "../../util/file";
+import { first, Observable } from "rxjs";
+import { Err, Ok, Result } from "../../core/result";
+import { hashFile$ } from "../../util/file";
 
 export class Image {
   private constructor(
@@ -13,14 +13,14 @@ export class Image {
   public static readFromFile$(file: File): Observable<Result<Image, string>> {
     const observable: Observable<Result<Image, string>> = new Observable(observer => {
       const hashSubscription = hashFile$(file).pipe(first()).subscribe(hashResult => {
-        if (hashResult.isError()) {
-          observer.next(new Result<Image, string>(new Err(hashResult.unwrapError())));
+        if (hashResult.isErr()) {
+          observer.next(new Result<Image, string>(new Err(hashResult.unwrapErr())));
           observer.complete();
 
           return;
         }
 
-        const fileHash = hashResult.unwrapOk();
+        const fileHash = hashResult.unwrap();
 
         const reader = new FileReader();
         reader.onload = (event) => {

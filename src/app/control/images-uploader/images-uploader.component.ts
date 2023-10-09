@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
-import {Image} from './image';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {first} from 'rxjs';
-import {FormControl} from '@angular/forms';
-import {ImageLimits} from "./image-limits";
-import {imageCountValidator} from './images-uploader-validation';
-import {v4} from 'uuid';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Image } from './image';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { ImageLimits } from "./image-limits";
+import { imageCountValidator } from './images-uploader-validation';
+import { v4 } from 'uuid';
 
 const ALLOWED_IMAGE_MIME_TYPES: string[] = ["image/png", "image/jpeg", "image/webp"];
 
@@ -95,8 +95,8 @@ export class ImagesUploaderComponent implements AfterViewInit {
     }
 
     Image.readFromFile$(file).pipe(first()).subscribe(result => {
-      if (result.isError()) {
-        const error = result.unwrapError();
+      if (result.isErr()) {
+        const error = result.unwrapErr();
 
         if (error === null) {
           return;
@@ -106,7 +106,7 @@ export class ImagesUploaderComponent implements AfterViewInit {
         return;
       }
 
-      const image = result.unwrapOk();
+      const image = result.unwrap();
 
       if (image === null) {
         return;
