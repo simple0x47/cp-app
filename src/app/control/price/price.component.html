@@ -1,0 +1,16 @@
+<mat-divider class="transparent-divider"></mat-divider>
+<mat-form-field appearance="fill" clas="form-field" floatLabel="always">
+  <mat-label>{{ label }}</mat-label>
+  <input #priceInput [formControl]="control" [max]="maximum" [min]="minimum" class="price-input" matInput
+         type="number">
+  <button (click)="openCurrencySelector()" class="currency-selector" mat-stroked-button matSuffix type="button">
+    <mat-icon>arrow_drop_down</mat-icon>
+    {{ activeCurrency }}
+  </button>
+  <mat-error *ngIf="control.hasError('min')" i18n>
+    The value is lower than {{ minimum }}
+  </mat-error>
+  <mat-error *ngIf="control.hasError('max')" i18n>
+    The value is greater than {{ maximum }}
+  </mat-error>
+</mat-form-field>

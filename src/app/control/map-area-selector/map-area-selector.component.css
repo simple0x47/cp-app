@@ -1,0 +1,13 @@
+.clear-button {
+  display: block;
+  position: relative;
+  bottom: 64px;
+  left: 16px;
+}
+
+.remove-selected-button {
+  display: block;
+  position: relative;
+  bottom: 64px;
+  left: 64px;
+}

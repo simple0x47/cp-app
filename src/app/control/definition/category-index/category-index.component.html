@@ -1,0 +1,7 @@
+<mat-chip-listbox cdkDropList cdkDropListOrientation="horizontal" class="category-list">
+  <ng-container *ngFor="let category of indexCategory(); last as isLast">
+    <mat-chip-option (selectionChange)="selectChange($event)" [selected]="isLast">
+      {{ category.name }}
+    </mat-chip-option>
+  </ng-container>
+</mat-chip-listbox>

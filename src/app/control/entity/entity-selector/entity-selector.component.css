@@ -1,0 +1,25 @@
+.entity-selector-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center !important;
+}
+
+.entity-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entity-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
+.entity-display-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

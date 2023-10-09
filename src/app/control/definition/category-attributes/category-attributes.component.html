@@ -1,0 +1,85 @@
+<form [formGroup]="formGroup" [id]="category?.id" class="category-attributes-form">
+  <ng-container *ngIf="category">
+    <ng-container *ngFor="let attribute of category.attributes">
+      <mat-checkbox *ngIf="attribute.dataType === 'boolean'" [formControlName]="attribute.id" [id]="attribute.id">
+        {{ attribute.name }}
+      </mat-checkbox>
+
+      <!-- Not combined with the other data types due to an aligment error surfacing when nesting level
+      increases by 1. -->
+      <mat-form-field *ngIf="attribute.dataType === 'date'" appearance="fill">
+        <mat-label>{{ attribute.name }}</mat-label>
+
+        <input [formControlName]="attribute.id" [id]="attribute.id" [matDatepicker]="datePicker"
+               [required]="!attribute.optional"
+               matInput/>
+        <mat-datepicker-toggle [for]="datePicker" matIconSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+      </mat-form-field>
+
+      <ng-container
+        *ngIf="getControlByAttributeId(attribute.id).hasError('compositionProducedAfterFinalProduct')">
+        <mat-error i18n>Cannot be sooner than the derived product's one</mat-error>
+        <mat-divider class="transparent-divider"></mat-divider>
+      </ng-container>
+
+      <app-product-composition *ngIf="attribute.dataType.startsWith('comp#')" [attributeId]="attribute.id"
+                               [attribute]="attribute" [formValidated]="formValidated"
+                               [required]="!attribute.optional"></app-product-composition>
+
+      <app-entity-selector *ngIf="attribute.dataType.startsWith('entity#')"
+                           [entities$]="entityProvider.getEntities$(attribute.dataType)"
+                           [entityId]="attribute.id"
+                           [entityName]="attribute.name"></app-entity-selector>
+
+      <app-images-uploader *ngIf="attribute.dataType.startsWith('images#')" [attributeId]="attribute.id"
+                           [formValidated]="formValidated" [label]="attribute.name"
+                           [limitsConfig]="attribute.dataType"></app-images-uploader>
+
+      <ng-container *ngIf="attribute.dataType === 'string' ||
+             attribute.dataType.startsWith('integer') ||
+             attribute.dataType.startsWith('decimal') ||
+             attribute.dataType === 'datetime' ||
+             attribute.dataType.startsWith('enum#')">
+        <mat-form-field appearance="fill">
+          <mat-label>{{ attribute.name }}</mat-label>
+
+          <input *ngIf="attribute.dataType === 'string'" [formControlName]="attribute.id" [id]="attribute.id"
+                 [required]="!attribute.optional"
+                 matInput type="text">
+
+          <input *ngIf="attribute.dataType.startsWith('integer')" [formControlName]="attribute.id" [id]="attribute.id"
+                 [required]="!attribute.optional" matInput onmousewheel="this.blur()"
+                 type="number">
+
+          <input *ngIf="attribute.dataType.startsWith('decimal')" [formControlName]="attribute.id" [id]="attribute.id"
+                 [required]="!attribute.optional" matInput onmousewheel="this.blur()"
+                 type="number">
+
+          <span *ngIf="attribute.dataType.startsWith('decimal#') || attribute.dataType.startsWith('integer#')"
+                matTextSuffix>
+                        {{ attribute.dataType.replace('decimal#', "").replace("integer#", "") }}
+                    </span>
+
+          <input *ngIf="attribute.dataType === 'datetime'" [formControlName]="attribute.id" [id]="attribute.id"
+                 [required]="!attribute.optional"
+                 matInput type="datetime-local">
+
+          <mat-select *ngIf="attribute.dataType.startsWith('enum#')" [formControlName]="attribute.id"
+                      [id]="attribute.id" [required]="!attribute.optional">
+            <mat-option *ngFor="let enumValue of definition.getOptionsForEnum$(attribute.dataType) | async"
+                        [value]="enumValue.value">
+              {{ enumValue.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <mat-divider class="transparent-divider"></mat-divider>
+    </ng-container>
+
+    <ng-container *ngIf="formValidated">
+      <mat-error *ngFor="let errorMessage of getErrorMessages()">{{ errorMessage }}</mat-error>
+    </ng-container>
+  </ng-container>
+</form>

@@ -1,0 +1,18 @@
+.transparent-divider {
+  opacity: 0;
+  padding-bottom: 16px;
+}
+
+input.price-input::-webkit-outer-spin-button,
+input.price-input::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.price-input {
+  -moz-appearance: textfield;
+}
+
+.currency-selector {
+  margin-left: 8px;
+  margin-right: 8px;
+}

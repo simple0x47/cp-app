@@ -1,0 +1,18 @@
+<mat-label i18n>Composition</mat-label>
+<mat-chip-listbox multiple>
+  <ng-container *ngFor="let product of composition">
+    <mat-chip-row>
+      {{ product.displayName }}
+      <button (click)="removeProduct(product)" matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+  </ng-container>
+</mat-chip-listbox>
+<button (click)="openCreateProductSupplyDialog()" class="add-composition-button"
+        mat-icon-button>
+  <mat-icon>add_circle_outline</mat-icon>
+</button>
+<ng-container *ngIf="formValidated && required && composition.length === 0">
+  <mat-error i18n>You must add at least one product.</mat-error>
+</ng-container>

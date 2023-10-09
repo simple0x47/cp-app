@@ -1,0 +1,11 @@
+<google-map [options]="mapOptions" [width]="windowInnerWidth" class="google-map"></google-map>
+
+<button (click)="clearMap()" *ngIf="selectedPolygon === null" class="clear-button"
+        mat-mini-fab>
+  <mat-icon>delete_forever</mat-icon>
+</button>
+
+<button (click)="removeSelectedPolygon()" *ngIf="selectedPolygon !== null" class="remove-selected-button"
+        mat-mini-fab>
+  <mat-icon>clear</mat-icon>
+</button>

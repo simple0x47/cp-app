@@ -1,0 +1,10 @@
+.category-attributes-form {
+  padding-top: 16px;
+}
+
+.transparent-divider {
+  border-color: transparent;
+  background-color: transparent;
+  color: transparent;
+  padding-top: 16px;
+}
