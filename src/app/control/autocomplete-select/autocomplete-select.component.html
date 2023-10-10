@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="!control.value" appearance="fill">
+<mat-form-field class="form-field" *ngIf="!control.value" appearance="fill">
   <mat-label>{{ label }}</mat-label>
   <input [formControl]="searchControl" [matAutocomplete]="auto" matInput type="text">
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)" autoActiveFirstOption>
@@ -7,7 +7,7 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
-<mat-form-field *ngIf="control.value" appearance="fill">
+<mat-form-field class="form-field" *ngIf="control.value" appearance="fill">
   <mat-label>{{ label }}</mat-label>
   <input [value]="control.value.displayName" disabled="true" matInput type="text">
   <button (click)="deselectOption()" mat-icon-button matSuffix>
