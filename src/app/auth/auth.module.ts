@@ -10,11 +10,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from 'src/app/control/control.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
