@@ -30,14 +30,14 @@
                 <mat-icon matSuffix>account_balance</mat-icon>
             </mat-form-field>
 
-            <mat-expansion-panel>
+            <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Organization address
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="address-container">
-                    <app-autocomplete-select label-i18n label="Country" [values]="countries.getCountryList('en')">
+                    <app-autocomplete-select label-i18n label="Country*" [values]="countries.getCountryList('en')">
 
                     </app-autocomplete-select>
                     <mat-form-field appearance="fill">
