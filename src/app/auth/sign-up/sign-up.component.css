@@ -15,6 +15,15 @@
     flex: 1 0;
 }
 
-.organization-mode-selection {
+.organization-mode {
+    padding-bottom: 16px;
+}
+
+.organization-mode-item {
     padding: 16px;
+}
+
+.address-container {
+    display: flex;
+    flex-direction: column;
 }

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from 'src/app/control/control.module';
@@ -22,6 +23,7 @@ import { ControlModule } from 'src/app/control/control.module';
     MatInputModule,
     MatButtonModule,
     MatRadioModule,
+    MatExpansionModule,
     ControlModule,
     ReactiveFormsModule
   ],
