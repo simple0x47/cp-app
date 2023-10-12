@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthModule } from 'src/app/auth/auth.module';
+import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
 import { SuccessfulLogin } from 'src/app/auth/login/successful-login';
 import { Err, Ok, Result } from 'src/app/core/result';
 import { environment } from 'src/environments/environment';
@@ -11,7 +11,7 @@ const INVALID_CREDENTIALS: string = "invalid credentials";
 const SERVER_ERROR: string = "server error";
 
 @Injectable({
-  providedIn: AuthModule
+  providedIn: AuthApiModule
 })
 export class AuthService {
 
@@ -44,6 +44,8 @@ export class AuthService {
             observer.next(new Result<SuccessfulLogin, string>(new Err(SERVER_ERROR)));
           }
         }
+
+        observer.complete();
       });
 
       return {

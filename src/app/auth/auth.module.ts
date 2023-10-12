@@ -11,13 +11,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from 'src/app/control/control.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { AuthService } from 'src/app/auth/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
 
 @NgModule({
-  providers: [
-    AuthService
-  ],
   declarations: [
     LoginComponent,
     SignUpComponent,
@@ -33,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     ControlModule,
     ReactiveFormsModule,
-    HttpClientModule
+    AuthApiModule
   ],
   exports: [
     LoginComponent,
