@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@ngxs/store": "^3.8.1",
     "@types/country-list": "^2.1.2",
     "@types/crypto-js": "^4.1.2",
     "country-list": "^2.3.0",
