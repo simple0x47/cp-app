@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from 'src/app/auth-api/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from 'src/app/auth-api/auth-state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 
 
@@ -9,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [],
   imports: [
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    NgxsModule.forFeature([AuthState])
   ]
 })
 export class AuthApiModule { }

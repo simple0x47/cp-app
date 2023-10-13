@@ -1,0 +1,3 @@
+<ng-container *ngIf="user$ != null">
+    <p>Access token: {{ (user$ | async)?.access_token }}</p>
+</ng-container>

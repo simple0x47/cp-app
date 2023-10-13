@@ -4,18 +4,22 @@
             <h1 i18n>Welcome!</h1>
             <mat-form-field appearance="fill" class="login-box-item">
                 <mat-label i18n>Email</mat-label>
-                <input [formControl]="email" matInput type="email" required>
+                <input [formControl]="email" (change)="onInputChange()" matInput type="email" required>
                 <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label i18n>Password</mat-label>
-                <input [formControl]="password" matInput type="password" required>
+                <input [formControl]="password" (change)="onInputChange()" matInput type="password" required>
                 <mat-icon matSuffix>key</mat-icon>
             </mat-form-field>
 
             <mat-error *ngIf="error_id.length > 0">
-                <ng-container *ngIf="error_id == 'invalid_credentials'" i18n>Invalid credentials</ng-container>
+                <ng-container *ngIf="error_id=='invalid successful login data'" i18n>
+                    Error, please try again
+                </ng-container>
+                <ng-container *ngIf="error_id == 'invalid credentials'" i18n>Invalid credentials</ng-container>
+                <ng-container *ngIf="error_id == 'server error'" i18n>An error ocurred, please try again</ng-container>
             </mat-error>
 
             <p i18n>Don't have an account? <a href="sign-up">Sign up</a></p>
