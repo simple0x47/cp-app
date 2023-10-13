@@ -1,9 +1,10 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
+import { Logout } from 'src/app/auth-api/auth.actions';
 import { SuccessfulLogin } from 'src/app/auth-api/successful-login';
-import { Err, Ok, Result } from 'src/app/core/result';
 import { environment } from 'src/environments/environment';
 
 const INVALID_SUCCESSFUL_LOGIN_DATA: string = "invalid successful login data";
@@ -16,8 +17,16 @@ const API_GATEWAY_LOGIN_PATH: string = "/auth/login";
   providedIn: AuthApiModule
 })
 export class AuthService {
+  private _isAuthenticated: boolean = false;
 
-  public constructor(private _client: HttpClient) { }
+  public constructor(
+    private _client: HttpClient,
+    private _store: Store
+  ) {
+    this._store.select(state => {
+      this._isAuthenticated = state.auth.access_token.length > 0;
+    }).subscribe();
+  }
 
   public login(email: string, password: string): Observable<SuccessfulLogin> {
     return new Observable(observer => {
@@ -30,7 +39,7 @@ export class AuthService {
         },
         observe: "response",
         responseType: "json"
-      },).subscribe({
+      }).subscribe({
         next: (value) => {
           if (value.ok) {
             let successfulLogin = value.body as SuccessfulLogin;
@@ -62,5 +71,13 @@ export class AuthService {
         },
       }
     });
+  }
+
+  public logout() {
+    this._store.dispatch(new Logout());
+  }
+
+  public isAuthenticated(): boolean {
+    return this._isAuthenticated;
   }
 }
