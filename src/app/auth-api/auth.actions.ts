@@ -1,10 +1,14 @@
-import { SuccessfulLogin } from "src/app/auth-api/successful-login";
+import { SuccessfulLogin } from 'src/app/auth-api/successful-login';
 
-export class LoginSuccess {
-    static readonly type = '[Auth] Login Success';
-    constructor(public successfulLogin: SuccessfulLogin) { }
+export class Login {
+  static readonly type = '[Auth] Login';
+
+  constructor(
+    public email: string,
+    public password: string,
+  ) {}
 }
 
 export class Logout {
-    static readonly type = '[Auth] Logout';
+  static readonly type = '[Auth] Logout';
 }

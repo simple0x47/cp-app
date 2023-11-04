@@ -1,32 +1,28 @@
 <div class="container">
-    <form>
-        <div class="login-box">
-            <h1 i18n>Welcome!</h1>
-            <mat-form-field appearance="fill" class="login-box-item">
-                <mat-label i18n>Email</mat-label>
-                <input [formControl]="email" (change)="onInputChange()" matInput type="email" required>
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
+  <form>
+    <div class="login-box">
+      <h1 i18n>Welcome!</h1>
+      <mat-form-field appearance="fill" class="login-box-item">
+        <mat-label i18n>Email</mat-label>
+        <input (change)="onInputChange()" [formControl]="email" matInput required type="email">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label i18n>Password</mat-label>
-                <input [formControl]="password" (change)="onInputChange()" matInput type="password" required>
-                <mat-icon matSuffix>key</mat-icon>
-            </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label i18n>Password</mat-label>
+        <input (change)="onInputChange()" [formControl]="password" matInput required type="password">
+        <mat-icon matSuffix>key</mat-icon>
+      </mat-form-field>
 
-            <mat-error *ngIf="error_id.length > 0">
-                <ng-container *ngIf="error_id=='invalid successful login data'" i18n>
-                    Error, please try again
-                </ng-container>
-                <ng-container *ngIf="error_id == 'invalid credentials'" i18n>Invalid credentials</ng-container>
-                <ng-container *ngIf="error_id == 'server error'" i18n>An error ocurred, please try again</ng-container>
-            </mat-error>
+      <mat-error *ngIf="error.length > 0">
+        {{ error }}
+      </mat-error>
 
-            <p i18n>Don't have an account? <a href="sign-up">Sign up</a></p>
+      <p i18n>Don't have an account? <a href="sign-up">Sign up</a></p>
 
-            <button (click)="onClickLogin()" mat-raised-button color="primary" type="button" i18n>Login</button>
+      <button (click)="onClickLogin()" color="primary" i18n mat-raised-button type="button">Login</button>
 
-            <p><a href="forgot-password" i18n>Forgot your password?</a></p>
-        </div>
-    </form>
+      <p><a href="forgot-password" i18n>Forgot your password?</a></p>
+    </div>
+  </form>
 </div>

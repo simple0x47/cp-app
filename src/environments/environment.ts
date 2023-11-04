@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiGatewayUrl: "cuplan.ro"
+    apiUrl: "https://cp-api.simpleg.eu:8443"
 };

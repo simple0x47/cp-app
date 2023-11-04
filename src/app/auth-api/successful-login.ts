@@ -1,5 +1,6 @@
 export class SuccessfulLogin {
-    access_token: string = "";
-    token_type: string = "";
-    expires_in: number = 0;
+    AccessToken: string = "";
+    IdToken: string = "";
+    RefreshToken: string = "";
+    ExpiresIn: number = 0;
 }
