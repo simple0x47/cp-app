@@ -1,12 +1,9 @@
 import { SuccessfulLogin } from 'src/app/auth-api/successful-login';
 
-export class Login {
-  static readonly type = '[Auth] Login';
+export class LoginSuccess {
+  static readonly type = '[Auth] Login success';
 
-  constructor(
-    public email: string,
-    public password: string,
-  ) {}
+  constructor(public successfulLogin: SuccessfulLogin) {}
 }
 
 export class Logout {

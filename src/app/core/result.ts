@@ -1,54 +1,46 @@
-export class Ok<T> {
-  public constructor(
-    public readonly value: T
-  ) {
+export class Result<TOk, TError> {
+  private _ok: TOk | null;
+  private _error: TError | null;
 
+  private constructor(ok: TOk | null, error: TError | null) {
+    this._ok = ok;
+    this._error = error;
   }
-}
 
-export class Err<T> {
-  public constructor(
-    public readonly value: T
-  ) {
+  public static Ok<TOk, TError>(ok: TOk): Result<TOk, TError> {
+    let result: Result<TOk, TError> = new Result<TOk, TError>(ok, null);
 
+    return result;
   }
-}
 
-export class Result<OkType, ErrorType> {
-  private _ok: Ok<OkType> | null;
-  private _error: Err<ErrorType> | null;
+  public static Err<OkType, ErrorType>(
+    error: ErrorType,
+  ): Result<OkType, ErrorType> {
+    let result: Result<OkType, ErrorType> = new Result<OkType, ErrorType>(
+      null,
+      error,
+    );
 
-  public constructor(okOrErr: Ok<OkType> | Err<ErrorType>) {
-    if (okOrErr instanceof Ok) {
-      this._ok = okOrErr;
-      this._error = null;
-    } else {
-      this._ok = null;
-      this._error = okOrErr;
-    }
+    return result;
   }
 
   public isOk(): boolean {
-    return (this._ok !== null);
+    return this._ok !== null;
   }
 
-  public isErr(): boolean {
-    return (this._error !== null);
-  }
-
-  public unwrap(): OkType {
+  public unwrap(): TOk {
     if (this._ok === null) {
-      throw new Error("Expected result to be ok.");
+      throw new Error('Expected result to be ok.');
     }
 
-    return this._ok.value;
+    return this._ok;
   }
 
-  public unwrapErr(): ErrorType {
+  public unwrapErr(): TError {
     if (this._error === null) {
-      throw new Error("Expected result to be an error.");
+      throw new Error('Expected result to be an error.');
     }
 
-    return this._error.value;
+    return this._error;
   }
 }

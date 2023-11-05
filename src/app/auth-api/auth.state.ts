@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
-import { Login, Logout } from 'src/app/auth-api/auth.actions';
+import { LoginSuccess, Logout } from 'src/app/auth-api/auth.actions';
 
 export interface AuthStateModel {
   AccessToken: string;
@@ -18,8 +18,14 @@ export interface AuthStateModel {
 })
 @Injectable()
 export class AuthState {
-  @Action(Login)
-  login(ctx: StateContext<AuthStateModel>, action: Login) {}
+  @Action(LoginSuccess)
+  login(ctx: StateContext<AuthStateModel>, action: LoginSuccess) {
+    ctx.setState({
+      AccessToken: action.successfulLogin.AccessToken,
+      RefreshToken: action.successfulLogin.RefreshToken,
+      IdToken: action.successfulLogin.IdToken,
+    });
+  }
 
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>, action: Logout) {

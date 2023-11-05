@@ -1,5 +1,7 @@
 <ng-container *ngIf="user$ != null">
-    <p>Access token: {{ (user$ | async)?.access_token }}</p>
+  <p>Access token: {{ (user$ | async)?.AccessToken }}</p>
 </ng-container>
 
-<ng-container *ngIf="authService.isAuthenticated()"><button (click)="onClickLogout()">Logout</button></ng-container>
+<ng-container *ngIf="authService.isAuthenticated()">
+  <button (click)="onClickLogout()">Logout</button>
+</ng-container>

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { LoginSuccess } from 'src/app/auth-api/auth.actions';
-import { AuthService } from 'src/app/auth-api/auth.service';
+import { LoginPayload } from '../../auth-api/login-payload';
+import { AuthService } from '../../auth-api/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,6 @@ export class LoginComponent {
 
   public constructor(
     private _authService: AuthService,
-    private _store: Store,
     private _router: Router,
   ) {
     this.email.addValidators(Validators.required);
@@ -37,9 +35,13 @@ export class LoginComponent {
       return;
     }
 
-    this._authService.login(this.email.value, this.password.value).subscribe({
+    let loginPayload: LoginPayload = {
+      Email: this.email.value,
+      Password: this.password.value,
+    };
+
+    this._authService.login(loginPayload).subscribe({
       next: (value) => {
-        this._store.dispatch(new LoginSuccess(value));
         this.error = '';
 
         this.navigateToHome();

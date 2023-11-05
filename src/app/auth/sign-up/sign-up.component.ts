@@ -1,12 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
-import { AuthService } from 'src/app/auth-api/auth.service';
 import { AutocompleteSelectCountryProviderService } from 'src/app/control/autocomplete-select/autocomplete-select-country-provider.service';
 import { Address } from 'src/app/core/address';
-import { LoginSuccess } from '../../auth-api/auth.actions';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
+import { RegisterCreatingOrgPayload } from '../../auth-api/register-creating-org-payload';
+import { RegisterUserPayload } from '../../auth-api/register-user-payload';
+import { RegisterOrgPayload } from '../../auth-api/register-org-payload';
+import { RegisterJoiningOrgPayload } from '../../auth-api/register-joining-org-payload';
+import { AuthService } from '../../auth-api/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -36,7 +39,7 @@ export class SignUpComponent {
   public countries: AutocompleteSelectCountryProviderService =
     new AutocompleteSelectCountryProviderService();
 
-  public errorId: string = '';
+  public error: string = '';
 
   public constructor(
     private _authService: AuthService,
@@ -123,55 +126,76 @@ export class SignUpComponent {
     }
 
     if (this.createOrJoinMode == 1) {
-      this.signUpCreatingOrganization();
+      this.registerCreatingOrg();
     } else {
-      this.signUpJoiningOrganization();
+      this.registerJoiningOrg();
     }
   }
 
-  private signUpCreatingOrganization() {
+  private registerCreatingOrg() {
     let email: string = this.email.value;
     let password: string = this.password.value;
     let fullName: string = this.fullName.value;
     let name: string = this.orgName.value;
     let address: Address = {
-      country: this.orgAddressCountry.value,
-      province: this.orgAddressProvince.value,
-      city: this.orgAddressCity.value,
-      street: this.orgAddressStreet.value,
-      number: this.orgAddressNumber.value,
-      additional: this.orgAddressAdditional.value,
-      postal_code: this.orgAddressPostalCode.value,
+      Country: this.orgAddressCountry.value,
+      Province: this.orgAddressProvince.value,
+      City: this.orgAddressCity.value,
+      Street: this.orgAddressStreet.value,
+      Number: this.orgAddressNumber.value,
+      Additional: this.orgAddressAdditional.value,
+      PostalCode: this.orgAddressPostalCode.value,
     };
 
-    this._authService
-      .signUpCreatingOrganization(email, password, fullName, name, address)
-      .subscribe({
-        next: (value) => {
-          this._store.dispatch(new LoginSuccess(value));
-          this.errorId = '';
+    let user: RegisterUserPayload = {
+      Email: email,
+      Password: password,
+      FullName: fullName,
+    };
 
-          this.navigateToHome();
-        },
-        error: (error) => {
-          this.errorId = error;
-        },
-      });
+    let org: RegisterOrgPayload = {
+      Name: name,
+      Address: address,
+    };
+
+    let payload: RegisterCreatingOrgPayload = {
+      User: user,
+      Org: org,
+    };
+
+    this._authService.registerCreatingOrg(payload).subscribe({
+      next: (value) => {
+        this.error = '';
+
+        this.navigateToHome();
+      },
+      error: (error) => {
+        this.error = error;
+      },
+    });
   }
 
   private navigateToHome() {
     this._router.navigateByUrl('/');
   }
 
-  private signUpJoiningOrganization() {
+  private registerJoiningOrg() {
     let email: string = this.email.value;
     let password: string = this.password.value;
+    let fullName: string = this.fullName.value;
     let invitationCode: string = this.invitationCode.value;
 
-    this._authService.signUpJoiningOrganization(
-      email,
-      password,
-      invitationCode,
-    );
+    let user: RegisterUserPayload = {
+      Email: email,
+      Password: password,
+      FullName: fullName,
+    };
+
+    let payload: RegisterJoiningOrgPayload = {
+      User: user,
+      InvitationCode: invitationCode,
+    };
+
+    this._authService.registerJoiningOrg(payload);
   }
 }
