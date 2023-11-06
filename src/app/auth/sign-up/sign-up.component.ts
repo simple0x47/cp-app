@@ -10,6 +10,7 @@ import { RegisterUserPayload } from '../../auth-api/register-user-payload';
 import { RegisterOrgPayload } from '../../auth-api/register-org-payload';
 import { RegisterJoiningOrgPayload } from '../../auth-api/register-joining-org-payload';
 import { AuthService } from '../../auth-api/auth.service';
+import { DataPair } from '../../control/autocomplete-select/data-pair';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,7 +23,7 @@ export class SignUpComponent {
   public fullName: FormControl<string> = new FormControl();
 
   public orgName: FormControl<string> = new FormControl();
-  public orgAddressCountry: FormControl<string> = new FormControl();
+  public orgAddressCountry: FormControl<DataPair> = new FormControl();
   public orgAddressProvince: FormControl<string> = new FormControl();
   public orgAddressCity: FormControl<string> = new FormControl();
   public orgAddressStreet: FormControl<string> = new FormControl();
@@ -40,6 +41,7 @@ export class SignUpComponent {
     new AutocompleteSelectCountryProviderService();
 
   public error: string = '';
+  public loading: boolean = false;
 
   public constructor(
     private _authService: AuthService,
@@ -112,6 +114,7 @@ export class SignUpComponent {
     if (
       this.createOrJoinMode == 1 &&
       (!this.orgName.valid ||
+        !this.orgAddressCountry.valid ||
         !this.orgAddressAdditional.valid ||
         !this.orgAddressProvince.valid ||
         !this.orgAddressCity.valid ||
@@ -121,9 +124,16 @@ export class SignUpComponent {
       return;
     }
 
+    if (this.orgAddressCountry.value == null) {
+      this.error = $localize`You must select a country.`;
+      return;
+    }
+
     if (this.createOrJoinMode == 2 && !this.invitationCode.valid) {
       return;
     }
+
+    this.loading = true;
 
     if (this.createOrJoinMode == 1) {
       this.registerCreatingOrg();
@@ -138,7 +148,7 @@ export class SignUpComponent {
     let fullName: string = this.fullName.value;
     let name: string = this.orgName.value;
     let address: Address = {
-      Country: this.orgAddressCountry.value,
+      Country: this.orgAddressCountry.value?.value,
       Province: this.orgAddressProvince.value,
       City: this.orgAddressCity.value,
       Street: this.orgAddressStreet.value,
@@ -156,6 +166,7 @@ export class SignUpComponent {
     let org: RegisterOrgPayload = {
       Name: name,
       Address: address,
+      Permissions: [],
     };
 
     let payload: RegisterCreatingOrgPayload = {
@@ -166,10 +177,11 @@ export class SignUpComponent {
     this._authService.registerCreatingOrg(payload).subscribe({
       next: (value) => {
         this.error = '';
-
+        this.loading = false;
         this.navigateToHome();
       },
       error: (error) => {
+        this.loading = false;
         this.error = error;
       },
     });
@@ -196,6 +208,7 @@ export class SignUpComponent {
       InvitationCode: invitationCode,
     };
 
+    this.loading = false;
     this._authService.registerJoiningOrg(payload);
   }
 }

@@ -9,7 +9,11 @@ import { LoginSuccess, Logout } from './auth.actions';
 import { RegisterCreatingOrgPayload } from './register-creating-org-payload';
 import { RegisterJoiningOrgPayload } from './register-joining-org-payload';
 import { AuthApiModule } from './auth-api.module';
-import { INVALID_GRANT, TOO_MANY_ATTEMPTS } from './error-codes';
+import {
+  INVALID_GRANT,
+  INVALID_SIGNUP,
+  TOO_MANY_ATTEMPTS,
+} from './error-codes';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
 const REGISTER_CREATING_ORG_ENDPOINT: string =
@@ -105,6 +109,8 @@ export class AuthService {
               );
             } else if (error.error == INVALID_GRANT) {
               observer.error($localize`Invalid email or password.`);
+            } else if (error.error == INVALID_SIGNUP) {
+              observer.error($localize`Email already registered.`);
             } else {
               observer.error(
                 $localize`An unknown error occurred, please try again.`,

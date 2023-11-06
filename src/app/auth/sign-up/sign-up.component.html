@@ -1,88 +1,99 @@
 <div class="container">
-    <form class="login-box">
-        <h1 i18n>Welcome!</h1>
-        <mat-form-field appearance="fill" class="login-box-item">
-            <mat-label i18n>Email</mat-label>
-            <input [formControl]="email" matInput type="email" required>
-            <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
+  <form class="login-box">
+    <h1 i18n>Welcome!</h1>
+    <mat-form-field appearance="fill" class="login-box-item">
+      <mat-label i18n>Email</mat-label>
+      <input [formControl]="email" matInput required type="email">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label i18n>Password</mat-label>
-            <input [formControl]="password" matInput type="password" required>
-            <mat-icon matSuffix>key</mat-icon>
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label i18n>Password</mat-label>
+      <input [formControl]="password" matInput required type="password">
+      <mat-icon matSuffix>key</mat-icon>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label i18n>Full name</mat-label>
-          <input [formControl]="fullName" matInput type="text" required>
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label i18n>Full name</mat-label>
+      <input [formControl]="fullName" matInput required type="text">
+    </mat-form-field>
 
-        <mat-radio-group class="organization-mode" (change)="onOrganizationModeChange($event)">
-            <mat-radio-button class="organization-mode-item" value="1" i18n #createAnOrganization>
-                Create an organization
-            </mat-radio-button>
-            <mat-radio-button class="organization-mode-item" value="2" i18n #joinAnExistingOrganization>
-                Join an existing organization
-            </mat-radio-button>
-        </mat-radio-group>
+    <mat-radio-group (change)="onOrganizationModeChange($event)" class="organization-mode">
+      <mat-radio-button #createAnOrganization class="organization-mode-item" i18n value="1">
+        Create an organization
+      </mat-radio-button>
+      <mat-radio-button #joinAnExistingOrganization class="organization-mode-item" i18n value="2">
+        Join an existing organization
+      </mat-radio-button>
+    </mat-radio-group>
 
-        <!-- Create an organization -->
-        <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 1">
-            <mat-form-field appearance="fill" class="login-box-item">
-                <mat-label i18n>Organization name</mat-label>
-                <input [formControl]="orgName" matInput type="text" required>
-                <mat-icon matSuffix>account_balance</mat-icon>
-            </mat-form-field>
+    <!-- Create an organization -->
+    <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 1">
+      <mat-form-field appearance="fill" class="login-box-item">
+        <mat-label i18n>Organization name</mat-label>
+        <input [formControl]="orgName" matInput required type="text">
+        <mat-icon matSuffix>account_balance</mat-icon>
+      </mat-form-field>
 
-            <mat-expansion-panel expanded="true">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Organization address
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="address-container">
-                    <app-autocomplete-select label-i18n label="Country*" [values]="countries.getCountryList('en')">
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Organization address
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="address-container">
+          <app-autocomplete-select [control]="orgAddressCountry" [required]="true"
+                                   [values]="countries.getCountryList('en')"
+                                   label="Country*" label-i18n>
 
-                    </app-autocomplete-select>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>Province</mat-label>
-                        <input [formControl]="orgAddressProvince" matInput type="text" required>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>City</mat-label>
-                        <input [formControl]="orgAddressCity" matInput type="text" required>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>Street</mat-label>
-                        <input [formControl]="orgAddressStreet" matInput type="text" required>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>Number</mat-label>
-                        <input [formControl]="orgAddressNumber" matInput type="text" required>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>Additional details</mat-label>
-                        <input [formControl]="orgAddressAdditional" matInput type="text">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label i18n>Postal code</mat-label>
-                        <input [formControl]="orgAddressPostalCode" matInput type="text" required>
-                    </mat-form-field>
-                </div>
-            </mat-expansion-panel>
-        </ng-container>
+          </app-autocomplete-select>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Province</mat-label>
+            <input [formControl]="orgAddressProvince" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>City</mat-label>
+            <input [formControl]="orgAddressCity" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Street</mat-label>
+            <input [formControl]="orgAddressStreet" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Number</mat-label>
+            <input [formControl]="orgAddressNumber" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Additional details</mat-label>
+            <input [formControl]="orgAddressAdditional" matInput type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Postal code</mat-label>
+            <input [formControl]="orgAddressPostalCode" matInput required type="text">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
 
-        <!-- Join an organization -->
-        <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 2">
-            <mat-form-field appearance="fill">
-                <mat-label i18n>Invitation code</mat-label>
-                <input [formControl]="invitationCode" matInput type="text" required>
-            </mat-form-field>
-        </ng-container>
+    <!-- Join an organization -->
+    <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 2">
+      <mat-form-field appearance="fill">
+        <mat-label i18n>Invitation code</mat-label>
+        <input [formControl]="invitationCode" matInput required type="text">
+      </mat-form-field>
+    </ng-container>
 
-        <p i18n>Already have an account? <a href="login">Login here</a></p>
+    <mat-error *ngIf="error.length > 0" class="error-hint">
+      {{ error }}
+    </mat-error>
 
-        <button mat-raised-button color="primary" type="button" (click)="onSignUpClick()" i18n>Sign up</button>
-    </form>
+    <p i18n>Already have an account? <a href="login">Login here</a></p>
+
+    <ng-container *ngIf="!loading">
+      <button (click)="onSignUpClick()" color="primary" i18n mat-raised-button type="button">Sign up</button>
+    </ng-container>
+    <ng-container *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+  </form>
 </div>
