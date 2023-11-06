@@ -1,4 +1,4 @@
-import { HttpClient, HttpStatusCode } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { LoginSuccess, Logout } from './auth.actions';
 import { RegisterCreatingOrgPayload } from './register-creating-org-payload';
 import { RegisterJoiningOrgPayload } from './register-joining-org-payload';
 import { AuthApiModule } from './auth-api.module';
+import { INVALID_GRANT, TOO_MANY_ATTEMPTS } from './error-codes';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
 const REGISTER_CREATING_ORG_ENDPOINT: string =
@@ -97,14 +98,18 @@ export class AuthService {
             observer.error($localize`An error occurred, please try again.`);
           },
           error: (error) => {
-            if (error.status == HttpStatusCode.Forbidden) {
+            console.log(JSON.stringify(error));
+            if (error.error == TOO_MANY_ATTEMPTS) {
+              observer.error(
+                $localize`Too many attempts. Your account has been locked. Check your email for instructions about how to unlock it.`,
+              );
+            } else if (error.error == INVALID_GRANT) {
               observer.error($localize`Invalid email or password.`);
-              return;
+            } else {
+              observer.error(
+                $localize`An unknown error occurred, please try again.`,
+              );
             }
-
-            observer.error(
-              $localize`An unknown error occurred, please try again.`,
-            );
           },
         });
 
