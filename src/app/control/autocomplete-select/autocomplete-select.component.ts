@@ -46,7 +46,6 @@ export class AutocompleteSelectComponent implements OnInit, OnDestroy {
         .pipe(
           map((a) => {
             this.control.updateValueAndValidity();
-            this.searchControl.updateValueAndValidity();
           }),
         )
         .subscribe();
