@@ -4,16 +4,32 @@ import { ForgotPasswordComponent } from 'src/app/auth/forgot-password/forgot-pas
 import { LoginComponent } from 'src/app/auth/login/login.component';
 import { SignUpComponent } from 'src/app/auth/sign-up/sign-up.component';
 import { HomeComponent } from 'src/app/dashboard/home/home.component';
+import {
+  canActivateIsLoggedIn,
+  canActivateIsNotLoggedIn,
+} from './auth-api/auth.router-guards';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '', component: HomeComponent }
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [canActivateIsNotLoggedIn],
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    canActivate: [canActivateIsNotLoggedIn],
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [canActivateIsNotLoggedIn],
+  },
+  { path: '', component: HomeComponent, canActivate: [canActivateIsLoggedIn] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

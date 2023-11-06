@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AuthState, AuthStateModel } from 'src/app/auth-api/auth.state';
+import { AuthStateModel } from 'src/app/auth-api/auth.state';
 import { AuthService } from 'src/app/auth-api/auth.service';
 
 @Component({
