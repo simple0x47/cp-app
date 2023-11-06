@@ -29,6 +29,7 @@ export class LoginComponent {
   }
 
   public onClickLogin() {
+    this.error = '';
     this.email.markAsTouched();
     this.password.markAsTouched();
 

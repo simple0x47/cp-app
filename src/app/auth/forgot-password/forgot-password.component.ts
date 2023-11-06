@@ -18,6 +18,7 @@ export class ForgotPasswordComponent {
   public constructor(public authService: AuthService) {}
 
   public onSendRequestClick() {
+    this.error = '';
     this.loading = true;
 
     let payload: ForgotPasswordPayload = {

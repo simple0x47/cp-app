@@ -91,6 +91,8 @@ export class SignUpComponent {
   }
 
   public onSignUpClick() {
+    this.error = '';
+
     this.email.markAsTouched();
     this.password.markAsTouched();
     this.orgName.markAsTouched();
