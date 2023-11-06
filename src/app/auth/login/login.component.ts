@@ -14,6 +14,7 @@ export class LoginComponent {
   public password: FormControl<string> = new FormControl();
 
   public error: string = '';
+  public loading: boolean = false;
 
   public constructor(
     private _authService: AuthService,
@@ -40,14 +41,17 @@ export class LoginComponent {
       Password: this.password.value,
     };
 
+    this.loading = true;
     this._authService.login(loginPayload).subscribe({
       next: (value) => {
         this.error = '';
 
+        this.loading = false;
         this.navigateToHome();
       },
       error: (error) => {
         this.error = error;
+        this.loading = false;
       },
     });
   }

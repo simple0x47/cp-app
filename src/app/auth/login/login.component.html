@@ -20,7 +20,13 @@
 
       <p i18n>Don't have an account? <a href="sign-up">Sign up</a></p>
 
-      <button (click)="onClickLogin()" color="primary" i18n mat-raised-button type="button">Login</button>
+      <ng-container *ngIf="!loading">
+        <button (click)="onClickLogin()" color="primary" i18n mat-raised-button type="button">Login</button>
+      </ng-container>
+
+      <ng-container *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>
 
       <p><a href="forgot-password" i18n>Forgot your password?</a></p>
     </div>

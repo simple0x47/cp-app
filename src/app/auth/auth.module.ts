@@ -12,13 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ControlModule } from 'src/app/control/control.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SignUpComponent,
-    ForgotPasswordComponent
-  ],
+  declarations: [LoginComponent, SignUpComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -29,12 +26,9 @@ import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
     MatExpansionModule,
     ControlModule,
     ReactiveFormsModule,
-    AuthApiModule
+    AuthApiModule,
+    MatProgressBarModule,
   ],
-  exports: [
-    LoginComponent,
-    SignUpComponent,
-    ForgotPasswordComponent
-  ],
+  exports: [LoginComponent, SignUpComponent, ForgotPasswordComponent],
 })
-export class AuthModule { }
+export class AuthModule {}
