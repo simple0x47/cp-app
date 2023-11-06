@@ -1,29 +1,30 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-box {
-    display: flex;
-    flex-direction: column;
-    padding: 32px;
-    background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background-color: whitesmoke;
+  width: min(100vw, 360px);
 }
 
 .login-box-item {
-    flex: 1 0;
+  flex: 1 0;
 }
 
 .organization-mode {
-    padding-bottom: 16px;
+  padding-bottom: 16px;
 }
 
 .organization-mode-item {
-    padding: 16px;
+  padding: 16px;
 }
 
 .address-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
