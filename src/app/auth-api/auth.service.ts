@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -14,12 +14,14 @@ import {
   INVALID_SIGNUP,
   TOO_MANY_ATTEMPTS,
 } from './error-codes';
+import { ForgotPasswordPayload } from './forgot-password-payload';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
 const REGISTER_CREATING_ORG_ENDPOINT: string =
   '/api/Authentication/register-creating-org';
 const REGISTER_JOINING_ORG_ENDPOINT: string =
   '/api/Authentication/sign-up-joining-org';
+const FORGOT_PASSWORD_ENDPOINT: string = '/api/Authentication/forgot-password';
 
 @Injectable({
   providedIn: AuthApiModule,
@@ -68,6 +70,42 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     return this._isAuthenticated;
+  }
+
+  public forgotPassword(payload: ForgotPasswordPayload): Observable<null> {
+    return new Observable<null>((observer) => {
+      let endpointSubscription = this._client
+        .post(
+          environment.apiUrl + FORGOT_PASSWORD_ENDPOINT,
+          JSON.stringify(payload),
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
+            observe: 'response',
+          },
+        )
+        .subscribe({
+          next: (response) => {
+            if (response.status != HttpStatusCode.NoContent) {
+              observer.error($localize`An unexpected error happened.`);
+              return;
+            }
+
+            observer.next(null);
+            observer.complete();
+          },
+          error: (error) => {
+            observer.error(error);
+          },
+        });
+
+      return {
+        unsubscribe() {
+          endpointSubscription.unsubscribe();
+        },
+      };
+    });
   }
 
   private commonLogin(
