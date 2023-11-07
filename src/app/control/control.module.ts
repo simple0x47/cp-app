@@ -11,9 +11,10 @@ import { MatListModule } from '@angular/material/list';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
+import { InitialsAvatarComponent } from './initials-avatar/initials-avatar.component';
 
 @NgModule({
-  declarations: [AutocompleteSelectComponent],
+  declarations: [AutocompleteSelectComponent, InitialsAvatarComponent],
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -27,6 +28,6 @@ import { MatOptionModule } from '@angular/material/core';
     CommonModule,
     GoogleMapsModule,
   ],
-  exports: [AutocompleteSelectComponent],
+  exports: [AutocompleteSelectComponent, InitialsAvatarComponent],
 })
 export class ControlModule {}

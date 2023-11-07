@@ -1,0 +1,60 @@
+@use '@angular/material' as mat;
+
+@import '../../../custom-theme.scss';
+
+.org-selector-item {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex;
+  flex-flow: column;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  padding: 16px 8px 16px 8px;
+  margin-top: 16px;
+  background: mat.get-color-from-palette(mat.$grey-palette, 100);
+  border-radius: 15px;
+}
+
+.add-new-organization {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding: 16px 8px 16px 8px;
+  margin-top: 16px;
+  background: mat.get-color-from-palette(mat.$grey-palette, 100);
+  border-radius: 15px;
+}
+
+.add-new-organization-row {
+  display: flex;
+  flex-flow: row;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+
+.org-selector-item:hover {
+  background: mat.get-color-from-palette(mat.$grey-palette, 200);
+}
+
+.org-selector-item-text {
+  padding-left: 16px;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  align-content: center;
+}
+
+.spacer {
+  padding: 8px;
+}
+
+.org-selector-item-action {
+  padding-left: 16px;
+  padding-right: 16px;
+}

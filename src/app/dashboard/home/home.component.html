@@ -1,3 +1,5 @@
+<app-toolbar></app-toolbar>
+
 <ng-container *ngIf="user$ != null">
   <p>Access token: {{ (user$ | async)?.AccessToken }}</p>
 </ng-container>

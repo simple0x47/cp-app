@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+
+@import '../../../custom-theme.scss';
+
+.custom-dialog {
+  background: transparent !important;
+}
+
+.content {
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+
+.org-selector-active-item {
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding: 16px 8px 16px 8px;
+}
+
+.org-selector-active-item-text {
+  padding-top: 16px;
+  padding-bottom: 24px;
+  font-family: Roboto;
+  font-size: 24px;
+}
+
+.org-selector-active-item-action {
+  padding-bottom: 24px;
+}
+
+.org-selector-active-item-action button {
+  font-family: Roboto;
+  font-size: 18px;
+}
