@@ -6,23 +6,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { OrgSelectorComponent } from './org-selector/org-selector.component';
+import { MembershipSelectorComponent } from './membership-selector/membership-selector.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { OrgSelectorDialogComponent } from './org-selector-dialog/org-selector-dialog.component';
+import { MembershipSelectorDialogComponent } from './membership-selector-dialog/membership-selector-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ControlModule } from '../control/control.module';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { OrgSelectorListComponent } from './org-selector-list/org-selector-list.component';
+import { MembershipSelectorListComponent } from './membership-selector-list/membership-selector-list.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ToolbarComponent,
-    OrgSelectorComponent,
-    OrgSelectorDialogComponent,
-    OrgSelectorListComponent,
+    MembershipSelectorComponent,
+    MembershipSelectorDialogComponent,
+    MembershipSelectorListComponent,
   ],
   imports: [
     CommonModule,

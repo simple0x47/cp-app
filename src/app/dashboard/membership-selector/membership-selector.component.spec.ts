@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrgSelectorComponent } from './org-selector.component';
+import { MembershipSelectorComponent } from './membership-selector.component';
 
 describe('OrgSelectorComponent', () => {
-  let component: OrgSelectorComponent;
-  let fixture: ComponentFixture<OrgSelectorComponent>;
+  let component: MembershipSelectorComponent;
+  let fixture: ComponentFixture<MembershipSelectorComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OrgSelectorComponent]
+      declarations: [MembershipSelectorComponent],
     });
-    fixture = TestBed.createComponent(OrgSelectorComponent);
+    fixture = TestBed.createComponent(MembershipSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
