@@ -8,13 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MembershipSelectorComponent } from './membership-selector/membership-selector.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { MembershipSelectorDialogComponent } from './membership-selector-dialog/membership-selector-dialog.component';
+import { MembershipSelectorDialogComponent } from './membership-selector/membership-selector-dialog/membership-selector-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ControlModule } from '../control/control.module';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MembershipSelectorListComponent } from './membership-selector-list/membership-selector-list.component';
+import { MembershipSelectorListComponent } from './membership-selector/membership-selector-list/membership-selector-list.component';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
-@use '@angular/material' as mat;
+@use '../../../../../node_modules/@angular/material/index' as mat;
 
-@import '../../../custom-theme.scss';
+@import '../../../../custom-theme';
 
 .custom-dialog {
   background: transparent !important;

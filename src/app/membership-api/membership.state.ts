@@ -1,7 +1,7 @@
 import { Membership } from './membership';
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { ReadAllMemberships } from './org.actions';
+import { ReadAllMembershipsSuccess } from './membership.actions';
 
 export interface OrgStateModel {
   ActiveMembership: Membership | null;
@@ -16,11 +16,11 @@ export interface OrgStateModel {
   },
 })
 @Injectable()
-export class OrgState {
-  @Action(ReadAllMemberships)
+export class MembershipState {
+  @Action(ReadAllMembershipsSuccess)
   readAllMemberships(
     ctx: StateContext<OrgStateModel>,
-    action: ReadAllMemberships,
+    action: ReadAllMembershipsSuccess,
   ) {
     let activeMembership: Membership | null = ctx.getState().ActiveMembership;
 

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MembershipSelectorDialogComponent } from '../membership-selector-dialog/membership-selector-dialog.component';
+import { MembershipSelectorDialogComponent } from './membership-selector-dialog/membership-selector-dialog.component';
 import { first, map, Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { Membership } from '../../org-api/membership';
+import { Membership } from '../../membership-api/membership';
 
 @Component({
   selector: 'app-membership-selector',

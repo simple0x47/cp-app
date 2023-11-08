@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { SuccessfulLogin } from 'src/app/auth-api/successful-login';
 import { environment } from 'src/environments/environment';
 import { LoginPayload } from './login-payload';
@@ -15,6 +15,8 @@ import {
   TOO_MANY_ATTEMPTS,
 } from './error-codes';
 import { ForgotPasswordPayload } from './forgot-password-payload';
+import { MembershipService } from '../membership-api/membership.service';
+import * as jose from 'jose';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
 const REGISTER_CREATING_ORG_ENDPOINT: string =
@@ -32,6 +34,7 @@ export class AuthService {
   public constructor(
     private _client: HttpClient,
     private _store: Store,
+    private _membershipService: MembershipService,
   ) {
     this._isAuthenticated = !!_store.selectSnapshot(
       (state) => state.auth.AccessToken,
@@ -129,6 +132,16 @@ export class AuthService {
               if (successfulLogin) {
                 this._isAuthenticated = true;
                 observer.next(successfulLogin);
+
+                let userId = jose.decodeJwt(successfulLogin.AccessToken).sub;
+
+                if (userId) {
+                  this._membershipService
+                    .readAllMemberships(userId)
+                    .pipe(first())
+                    .subscribe();
+                }
+
                 this._store.dispatch(new LoginSuccess(successfulLogin));
                 return;
               }

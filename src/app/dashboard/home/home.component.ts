@@ -3,6 +3,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthStateModel } from 'src/app/auth-api/auth.state';
 import { AuthService } from 'src/app/auth-api/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent {
   public constructor(
     public authService: AuthService,
     private _store: Store,
+    private _router: Router,
   ) {
     this.user$ = this._store.select((state) => {
       return state.auth;
@@ -23,5 +25,6 @@ export class HomeComponent {
 
   public onClickLogout() {
     this.authService.logout();
+    this._router.navigateByUrl('/login');
   }
 }
