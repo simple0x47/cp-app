@@ -3,13 +3,13 @@ import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { ReadAllMembershipsSuccess } from './membership.actions';
 
-export interface OrgStateModel {
+export interface MembershipStateModel {
   ActiveMembership: Membership | null;
   Memberships: Membership[];
 }
 
-@State<OrgStateModel>({
-  name: 'org',
+@State<MembershipStateModel>({
+  name: 'membership',
   defaults: {
     ActiveMembership: null,
     Memberships: [],
@@ -19,7 +19,7 @@ export interface OrgStateModel {
 export class MembershipState {
   @Action(ReadAllMembershipsSuccess)
   readAllMemberships(
-    ctx: StateContext<OrgStateModel>,
+    ctx: StateContext<MembershipStateModel>,
     action: ReadAllMembershipsSuccess,
   ) {
     let activeMembership: Membership | null = ctx.getState().ActiveMembership;
