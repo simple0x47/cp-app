@@ -26,7 +26,7 @@ export class MembershipSelectorComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this._membershipsSubscription = this._store
-      .select((state) => state.org.ActiveMembership)
+      .select((state) => state.membership.ActiveMembership)
       .pipe(
         map((v, i) => {
           this.activeMembership = v;
@@ -82,5 +82,9 @@ export class MembershipSelectorComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe();
+  }
+
+  public onAddAnOrganizationClick() {
+    this._routingService.goToNewMembership();
   }
 }

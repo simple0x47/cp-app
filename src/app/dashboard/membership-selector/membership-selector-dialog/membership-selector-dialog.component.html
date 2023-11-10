@@ -1,9 +1,9 @@
 <div class="content" mat-dialog-content>
   <ng-container *ngIf="activeMembership != null">
     <div class="org-selector-active-item">
-      <app-initials-avatar height="96px" text="SimpleG" width="96px"></app-initials-avatar>
+      <app-initials-avatar [text]="activeMembership.OrgName" height="96px" width="96px"></app-initials-avatar>
       <div class="org-selector-active-item-text">
-        SimpleG
+        {{ activeMembership.OrgName }}
       </div>
       <div class="org-selector-active-item-action">
         <button color="primary" mat-raised-button>Manage organization</button>

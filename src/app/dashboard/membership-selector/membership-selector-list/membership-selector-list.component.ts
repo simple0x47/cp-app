@@ -17,7 +17,7 @@ export class MembershipSelectorListComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this._membershipsSubscription = this._store
-      .select((state) => state.membership)
+      .select((state) => state.membership.Memberships)
       .pipe(
         map((v: Membership[]) => {
           let activeMembership: Membership = this._store.selectSnapshot(

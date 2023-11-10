@@ -1,9 +1,3 @@
 <app-toolbar></app-toolbar>
 
-<ng-container *ngIf="user$ != null">
-  <p>Access token: {{ (user$ | async)?.AccessToken }}</p>
-</ng-container>
-
-<ng-container *ngIf="authService.isAuthenticated()">
-  <button (click)="onClickLogout()">Logout</button>
-</ng-container>
+<button (click)="onEventClick()">Event</button>

@@ -1,0 +1,87 @@
+<div class="container">
+  <form class="login-box">
+    <h2 i18n>Organization</h2>
+    <p i18n>In order to unlock the full potential of Cuplan, you must be part of an
+      organization.</p>
+
+    <p>You can choose to create a new one or join an existing one:</p>
+
+    <mat-radio-group (change)="onOrganizationModeChange($event)" class="organization-mode">
+      <mat-radio-button #createAnOrganization class="organization-mode-item" i18n value="1">
+        Create an organization
+      </mat-radio-button>
+      <mat-radio-button #joinAnExistingOrganization class="organization-mode-item" i18n value="2">
+        Join an existing organization
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <!-- Create an organization -->
+    <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 1">
+      <mat-form-field appearance="fill" class="login-box-item">
+        <mat-label i18n>Organization name</mat-label>
+        <input [formControl]="orgName" matInput required type="text">
+        <mat-icon matSuffix>account_balance</mat-icon>
+      </mat-form-field>
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Organization address
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="address-container">
+          <app-autocomplete-select [control]="orgAddressCountry" [required]="true"
+                                   [values]="countries.getCountryList('en')"
+                                   label="Country*" label-i18n>
+
+          </app-autocomplete-select>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Province</mat-label>
+            <input [formControl]="orgAddressProvince" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>City</mat-label>
+            <input [formControl]="orgAddressCity" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Street</mat-label>
+            <input [formControl]="orgAddressStreet" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Number</mat-label>
+            <input [formControl]="orgAddressNumber" matInput required type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Additional details</mat-label>
+            <input [formControl]="orgAddressAdditional" matInput type="text">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label i18n>Postal code</mat-label>
+            <input [formControl]="orgAddressPostalCode" matInput required type="text">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+
+    <!-- Join an organization -->
+    <ng-container *ngIf="createOrJoinOrganization?.selected?.value == 2">
+      <mat-form-field appearance="fill">
+        <mat-label i18n>Invitation code</mat-label>
+        <input [formControl]="invitationCode" matInput required type="text">
+      </mat-form-field>
+    </ng-container>
+
+    <mat-error *ngIf="error.length > 0" class="error-hint">
+      {{ error }}
+    </mat-error>
+
+    <span class="spacer"></span>
+
+    <ng-container *ngIf="!loading">
+      <button (click)="onSubmitClick()" color="primary" i18n mat-raised-button type="button">Submit</button>
+    </ng-container>
+    <ng-container *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+  </form>
+</div>

@@ -1,9 +1,10 @@
-<button (click)="onSelectMembershipClick()" class="org-selector" mat-fab>
-  <ng-container *ngIf="activeMembership == null">
-    <mat-icon>business</mat-icon>
-  </ng-container>
-  <ng-container *ngIf="activeMembership != null">
+<ng-container *ngIf="activeMembership != null">
+  <button (click)="onSelectMembershipClick()" class="org-selector" mat-fab>
     <app-initials-avatar [text]="activeMembership.OrgName" height="56px"
                          width="56px"></app-initials-avatar>
-  </ng-container>
-</button>
+  </button>
+</ng-container>
+
+<ng-container *ngIf="activeMembership == null">
+  <button (click)="onAddAnOrganizationClick()" color="primary" i18n mat-flat-button>Add an organization</button>
+</ng-container>

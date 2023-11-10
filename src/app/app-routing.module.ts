@@ -8,6 +8,7 @@ import {
   canActivateIsLoggedIn,
   canActivateIsNotLoggedIn,
 } from './auth-api/auth.router-guards';
+import { NewMembershipComponent } from './membership/new-membership/new-membership.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     canActivate: [canActivateIsNotLoggedIn],
+  },
+  {
+    path: 'new-membership',
+    component: NewMembershipComponent,
+    canActivate: [canActivateIsLoggedIn],
   },
   { path: '', component: HomeComponent, canActivate: [canActivateIsLoggedIn] },
 ];

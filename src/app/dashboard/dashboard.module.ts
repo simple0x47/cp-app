@@ -16,6 +16,7 @@ import { ControlModule } from '../control/control.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MembershipSelectorListComponent } from './membership-selector/membership-selector-list/membership-selector-list.component';
 import { RoutingModule } from '../routing/routing.module';
+import { MembershipApiModule } from '../membership-api/membership-api.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RoutingModule } from '../routing/routing.module';
     ControlModule,
     MatExpansionModule,
     RoutingModule,
+    MembershipApiModule,
   ],
   exports: [HomeComponent],
 })
