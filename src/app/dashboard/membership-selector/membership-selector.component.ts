@@ -4,6 +4,7 @@ import { MembershipSelectorDialogComponent } from './membership-selector-dialog/
 import { first, map, Subscription } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { Membership } from '../../membership-api/membership';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-membership-selector',
@@ -20,6 +21,7 @@ export class MembershipSelectorComponent implements OnInit, OnDestroy {
   public constructor(
     private _dialog: MatDialog,
     private _store: Store,
+    private _router: Router,
   ) {}
 
   public ngOnInit() {
@@ -39,7 +41,12 @@ export class MembershipSelectorComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onSelectOrgClick() {
+  public onSelectMembershipClick() {
+    if (this.activeMembership == null) {
+      this._router.navigateByUrl('/new-membership');
+      return;
+    }
+
     if (this.isSelectorDisplayed) {
       return;
     }

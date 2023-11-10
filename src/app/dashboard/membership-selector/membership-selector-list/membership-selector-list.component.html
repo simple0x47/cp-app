@@ -1,37 +1,26 @@
 <div class="org-selector">
-  <a class="org-selector-item" href="#">
-    <app-initials-avatar height="48px" text="Example" width="48px"></app-initials-avatar>
-    <div class="org-selector-item-text">
-      <div class="org-selector-item-title">
-        SimpleG
+  <ng-container *ngFor="let membership of memberships">
+    <a class="org-selector-item" href="#">
+      <app-initials-avatar [text]="membership.OrgName" height="48px" width="48px"></app-initials-avatar>
+      <div class="org-selector-item-text">
+        <div class="org-selector-item-title">
+          {{ membership.OrgName }}
+        </div>
+        <div class="org-selector-item-subtitle">
+          {{ membership.OrgId }}
+        </div>
       </div>
-      <div class="org-selector-item-subtitle">
-        This is the motto of the organization
+      <div class="org-selector-item-action">
+        <mat-icon>keyboard_arrow_right</mat-icon>
       </div>
-    </div>
-    <div class="org-selector-item-action">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </div>
-  </a>
-  <a class="org-selector-item" href="#">
-    <app-initials-avatar height="48px" text="Example" width="48px"></app-initials-avatar>
-    <div class="org-selector-item-text">
-      <div class="org-selector-item-title">
-        SimpleG
-      </div>
-      <div class="org-selector-item-subtitle">
-        This is the motto of the organization
-      </div>
-    </div>
-    <div class="org-selector-item-action">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </div>
-  </a>
+    </a>
+  </ng-container>
+
   <a class="add-new-organization" href="#">
     <div class="add-new-organization-row">
       <mat-icon>add</mat-icon>
       <span class="spacer"></span>
-      Add a new organization
+      <p i18n>Add a new organization</p>
     </div>
   </a>
 </div>

@@ -1,26 +1,28 @@
 <div class="content" mat-dialog-content>
-  <div class="org-selector-active-item">
-    <app-initials-avatar height="96px" text="SimpleG" width="96px"></app-initials-avatar>
-    <div class="org-selector-active-item-text">
-      SimpleG
+  <ng-container *ngIf="activeMembership != null">
+    <div class="org-selector-active-item">
+      <app-initials-avatar height="96px" text="SimpleG" width="96px"></app-initials-avatar>
+      <div class="org-selector-active-item-text">
+        SimpleG
+      </div>
+      <div class="org-selector-active-item-action">
+        <button color="primary" mat-raised-button>Manage organization</button>
+      </div>
     </div>
-    <div class="org-selector-active-item-action">
-      <button color="primary" mat-raised-button>Manage organization</button>
-    </div>
-  </div>
-  <mat-accordion class="org-selector-accordion">
-    <mat-expansion-panel (closed)="isShowMoreOrganizationsOpened = false"
-                         (opened)="isShowMoreOrganizationsOpened = true">
-      <mat-expansion-panel-header>
-        <ng-container *ngIf="!isShowMoreOrganizationsOpened">
-          <mat-panel-title i18n>Show more organizations</mat-panel-title>
-        </ng-container>
-        <ng-container *ngIf="isShowMoreOrganizationsOpened">
-          <mat-panel-title i18n>Hide more organizations</mat-panel-title>
-        </ng-container>
-      </mat-expansion-panel-header>
-      <app-membership-selector-list></app-membership-selector-list>
-    </mat-expansion-panel>
-  </mat-accordion>
 
+    <mat-accordion class="org-selector-accordion">
+      <mat-expansion-panel (closed)="isShowMoreOrganizationsOpened = false"
+                           (opened)="isShowMoreOrganizationsOpened = true">
+        <mat-expansion-panel-header>
+          <ng-container *ngIf="!isShowMoreOrganizationsOpened">
+            <mat-panel-title i18n>Show more organizations</mat-panel-title>
+          </ng-container>
+          <ng-container *ngIf="isShowMoreOrganizationsOpened">
+            <mat-panel-title i18n>Hide more organizations</mat-panel-title>
+          </ng-container>
+        </mat-expansion-panel-header>
+        <app-membership-selector-list></app-membership-selector-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
 </div>
