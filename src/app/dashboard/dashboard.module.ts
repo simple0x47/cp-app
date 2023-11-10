@@ -15,6 +15,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ControlModule } from '../control/control.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MembershipSelectorListComponent } from './membership-selector/membership-selector-list/membership-selector-list.component';
+import { RoutingModule } from '../routing/routing.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MembershipSelectorListComponent } from './membership-selector/membershi
     MatChipsModule,
     ControlModule,
     MatExpansionModule,
+    RoutingModule,
   ],
   exports: [HomeComponent],
 })

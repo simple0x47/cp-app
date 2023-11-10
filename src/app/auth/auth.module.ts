@@ -13,6 +13,7 @@ import { ControlModule } from 'src/app/control/control.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthApiModule } from 'src/app/auth-api/auth-api.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RoutingModule } from '../routing/routing.module';
 
 @NgModule({
   declarations: [LoginComponent, SignUpComponent, ForgotPasswordComponent],
@@ -28,6 +29,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     AuthApiModule,
     MatProgressBarModule,
+    RoutingModule,
   ],
   exports: [LoginComponent, SignUpComponent, ForgotPasswordComponent],
 })

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoginPayload } from '../../auth-api/login-payload';
 import { AuthService } from '../../auth-api/auth.service';
+import { RoutingService } from '../../routing/routing.service';
 
 @Component({
   selector: 'app-login',
@@ -17,14 +17,14 @@ export class LoginComponent {
   public loading: boolean = false;
 
   public constructor(
+    private _routingService: RoutingService,
     private _authService: AuthService,
-    private _router: Router,
   ) {
     this.email.addValidators(Validators.required);
     this.password.addValidators(Validators.required);
 
     if (_authService.isAuthenticated()) {
-      this.navigateToHome();
+      this._routingService.goToHome();
     }
   }
 
@@ -48,7 +48,7 @@ export class LoginComponent {
         this.error = '';
 
         this.loading = false;
-        this.navigateToHome();
+        this._routingService.goToHome();
       },
       error: (error) => {
         this.error = error;
@@ -59,9 +59,5 @@ export class LoginComponent {
 
   public onInputChange() {
     this.error = '';
-  }
-
-  private navigateToHome() {
-    this._router.navigateByUrl('/');
   }
 }

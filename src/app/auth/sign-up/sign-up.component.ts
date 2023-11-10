@@ -4,13 +4,13 @@ import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { AutocompleteSelectCountryProviderService } from 'src/app/control/autocomplete-select/autocomplete-select-country-provider.service';
 import { Address } from 'src/app/core/address';
 import { Store } from '@ngxs/store';
-import { Router } from '@angular/router';
 import { RegisterCreatingOrgPayload } from '../../auth-api/register-creating-org-payload';
 import { RegisterUserPayload } from '../../auth-api/register-user-payload';
 import { CreateOrgPayload } from '../../auth-api/create-org-payload';
 import { RegisterJoiningOrgPayload } from '../../auth-api/register-joining-org-payload';
 import { AuthService } from '../../auth-api/auth.service';
 import { DataPair } from '../../control/autocomplete-select/data-pair';
+import { RoutingService } from '../../routing/routing.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -46,7 +46,7 @@ export class SignUpComponent {
   public constructor(
     private _authService: AuthService,
     private _store: Store,
-    private _router: Router,
+    private _routingService: RoutingService,
   ) {}
 
   public onOrganizationModeChange(event: MatRadioChange) {
@@ -180,17 +180,13 @@ export class SignUpComponent {
       next: (value) => {
         this.error = '';
         this.loading = false;
-        this.navigateToHome();
+        this._routingService.goToHome();
       },
       error: (error) => {
         this.loading = false;
         this.error = error;
       },
     });
-  }
-
-  private navigateToHome() {
-    this._router.navigateByUrl('/');
   }
 
   private registerJoiningOrg() {

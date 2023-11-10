@@ -3,7 +3,8 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthStateModel } from 'src/app/auth-api/auth.state';
 import { AuthService } from 'src/app/auth-api/auth.service';
-import { Router } from '@angular/router';
+import { MembershipService } from '../../membership-api/membership.service';
+import { RoutingService } from '../../routing/routing.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,9 @@ export class HomeComponent {
 
   public constructor(
     public authService: AuthService,
+    private _membershipService: MembershipService,
     private _store: Store,
-    private _router: Router,
+    private _routingService: RoutingService,
   ) {
     this.user$ = this._store.select((state) => {
       return state.auth;
@@ -25,6 +27,14 @@ export class HomeComponent {
 
   public onClickLogout() {
     this.authService.logout();
-    this._router.navigateByUrl('/login');
+    this._routingService.goToLogin();
+  }
+
+  public onDoSomethingClick() {
+    const refreshToken: string = this._store.selectSnapshot(
+      (state) => state.auth.RefreshToken,
+    );
+    console.log('huh: ' + refreshToken);
+    this.authService.refreshToken(refreshToken).subscribe();
   }
 }
