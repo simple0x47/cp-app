@@ -34,7 +34,7 @@ export class OrgService {
           next: (response) => {
             if (response.status != HttpStatusCode.Ok) {
               observer.error(
-                $localize`An error ocurred creating the organization.`,
+                $localize`An error occurred creating the organization.`,
               );
               return;
             }
