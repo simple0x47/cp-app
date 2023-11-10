@@ -16,7 +16,7 @@ import {
 } from './error-codes';
 import { ForgotPasswordPayload } from './forgot-password-payload';
 import { MembershipService } from '../membership-api/membership.service';
-import * as jose from 'jose';
+import { RefreshTokenPayload } from './refresh-token-payload';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
 const REGISTER_CREATING_ORG_ENDPOINT: string =
@@ -24,6 +24,7 @@ const REGISTER_CREATING_ORG_ENDPOINT: string =
 const REGISTER_JOINING_ORG_ENDPOINT: string =
   '/api/Authentication/sign-up-joining-org';
 const FORGOT_PASSWORD_ENDPOINT: string = '/api/Authentication/forgot-password';
+const REFRESH_TOKEN_ENDPOINT: string = '/api/Authentication/refresh-token';
 
 @Injectable({
   providedIn: AuthApiModule,
@@ -111,6 +112,17 @@ export class AuthService {
     });
   }
 
+  public refreshToken(refreshToken: string): Observable<SuccessfulLogin> {
+    const payload: RefreshTokenPayload = {
+      RefreshToken: refreshToken,
+    };
+
+    return this.commonLogin(
+      environment.apiUrl + REFRESH_TOKEN_ENDPOINT,
+      JSON.stringify(payload),
+    );
+  }
+
   private commonLogin(
     endpoint: string,
     jsonPayload: string,
@@ -133,7 +145,11 @@ export class AuthService {
                 this._isAuthenticated = true;
                 observer.next(successfulLogin);
 
-                let userId = jose.decodeJwt(successfulLogin.AccessToken).sub;
+                this._store.dispatch(new LoginSuccess(successfulLogin));
+
+                let userId: string = this._store.selectSnapshot(
+                  (state) => state.auth.UserId,
+                );
 
                 if (userId) {
                   this._membershipService
@@ -142,7 +158,7 @@ export class AuthService {
                     .subscribe();
                 }
 
-                this._store.dispatch(new LoginSuccess(successfulLogin));
+                console.log('login success');
                 return;
               }
 
