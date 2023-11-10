@@ -7,7 +7,7 @@ import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { RegisterCreatingOrgPayload } from '../../auth-api/register-creating-org-payload';
 import { RegisterUserPayload } from '../../auth-api/register-user-payload';
-import { RegisterOrgPayload } from '../../auth-api/register-org-payload';
+import { CreateOrgPayload } from '../../auth-api/create-org-payload';
 import { RegisterJoiningOrgPayload } from '../../auth-api/register-joining-org-payload';
 import { AuthService } from '../../auth-api/auth.service';
 import { DataPair } from '../../control/autocomplete-select/data-pair';
@@ -165,7 +165,7 @@ export class SignUpComponent {
       FullName: fullName,
     };
 
-    let org: RegisterOrgPayload = {
+    let org: CreateOrgPayload = {
       Name: name,
       Address: address,
       Permissions: [],
