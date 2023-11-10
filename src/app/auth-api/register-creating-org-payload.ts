@@ -1,7 +1,7 @@
 import { RegisterUserPayload } from './register-user-payload';
-import { RegisterOrgPayload } from './register-org-payload';
+import { CreateOrgPayload } from './create-org-payload';
 
 export interface RegisterCreatingOrgPayload {
   User: RegisterUserPayload;
-  Org: RegisterOrgPayload;
+  Org: CreateOrgPayload;
 }
