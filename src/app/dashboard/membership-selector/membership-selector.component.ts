@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MembershipSelectorDialogComponent } from './membership-selector-dialog/membership-selector-dialog.component';
-import { first, map, Subscription } from 'rxjs';
+import {first, map, Observable, Subscription} from 'rxjs';
 import { Store } from '@ngxs/store';
 import { Membership } from '../../membership-api/membership';
 import { RoutingService } from '../../routing/routing.service';
@@ -14,7 +14,7 @@ import { RoutingService } from '../../routing/routing.service';
 export class MembershipSelectorComponent implements OnInit, OnDestroy {
   public activeMembership: Membership | null = null;
 
-  private _membershipsSubscription: Subscription | null = null;
+  private _activeMembershipSubscription: Subscription | null = null;
 
   private isSelectorDisplayed: boolean = false;
 
@@ -25,20 +25,15 @@ export class MembershipSelectorComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit() {
-    this._membershipsSubscription = this._store
-      .select((state) => state.membership.ActiveMembership)
-      .pipe(
-        map((v, i) => {
-          this.activeMembership = v;
-        }),
-      )
-      .subscribe();
+    this._activeMembershipSubscription = this._store.select(state => state.membership.ActiveMembership).subscribe({
+      next: (v) => {
+        this.activeMembership = v;
+      }
+    });
   }
 
   public ngOnDestroy() {
-    if (this._membershipsSubscription != null) {
-      this._membershipsSubscription.unsubscribe();
-    }
+    this._activeMembershipSubscription?.unsubscribe();
   }
 
   public onSelectMembershipClick() {

@@ -1,7 +1,7 @@
 import { Membership } from './membership';
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { ReadAllMembershipsSuccess } from './membership.actions';
+import {ReadAllMembershipsSuccess, SetActiveMembership} from './membership.actions';
 
 export interface MembershipStateModel {
   ActiveMembership: Membership | null;
@@ -32,5 +32,14 @@ export class MembershipState {
       ActiveMembership: activeMembership,
       Memberships: action.memberships,
     });
+  }
+
+  @Action(SetActiveMembership)
+  setActiveMembership(ctx: StateContext<MembershipStateModel>, action: SetActiveMembership) {
+    ctx.patchState(
+      {
+        ActiveMembership: action.membership
+      }
+    );
   }
 }

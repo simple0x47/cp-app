@@ -1,6 +1,6 @@
 <div class="org-selector">
   <ng-container *ngFor="let membership of memberships">
-    <a class="org-selector-item" href="#">
+    <a class="org-selector-item" href="#" (click)="onSelectMembership(membership)">
       <app-initials-avatar [text]="membership.OrgName" height="48px" width="48px"></app-initials-avatar>
       <div class="org-selector-item-text">
         <div class="org-selector-item-title">

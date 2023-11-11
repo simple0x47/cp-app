@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Membership } from '../../../membership-api/membership';
 import { Store } from '@ngxs/store';
 import { map, Subscription } from 'rxjs';
+import {MembershipService} from "../../../membership-api/membership.service";
+import {SetActiveMembership} from "../../../membership-api/membership.actions";
 
 @Component({
   selector: 'app-membership-selector-list',
@@ -42,5 +44,9 @@ export class MembershipSelectorListComponent implements OnInit, OnDestroy {
     if (this._membershipsSubscription != null) {
       this._membershipsSubscription.unsubscribe();
     }
+  }
+
+  public onSelectMembership(membership: Membership) {
+    this._store.dispatch(new SetActiveMembership(membership)).subscribe();
   }
 }
