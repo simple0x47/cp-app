@@ -76,6 +76,10 @@ export class AuthService {
     return this._isAuthenticated;
   }
 
+  public getUserId(): string | null {
+    return this._store.selectSnapshot(state => state.auth.UserId);
+  }
+
   public forgotPassword(payload: ForgotPasswordPayload): Observable<null> {
     return new Observable<null>((observer) => {
       let endpointSubscription = this._client

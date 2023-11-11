@@ -10,6 +10,8 @@ import { RegisterJoiningOrgPayload } from '../../auth-api/register-joining-org-p
 import { MembershipService } from '../../membership-api/membership.service';
 import { OrgService } from '../../org-api/org.service';
 import { RoutingService } from '../../routing/routing.service';
+import {UserCreateOrgPayload} from "../../membership-api/user-create-org-payload";
+import {AuthService} from "../../auth-api/auth.service";
 
 @Component({
   selector: 'app-new-membership',
@@ -40,8 +42,7 @@ export class NewMembershipComponent {
 
   public constructor(
     private _membershipService: MembershipService,
-    private _orgService: OrgService,
-    private _store: Store,
+    private _authService: AuthService,
     private _routingService: RoutingService,
   ) {}
 
@@ -135,8 +136,8 @@ export class NewMembershipComponent {
   }
 
   private createOrg() {
-    let name: string = this.orgName.value;
-    let address: Address = {
+    const name: string = this.orgName.value;
+    const address: Address = {
       Country: this.orgAddressCountry.value?.value,
       Province: this.orgAddressProvince.value,
       City: this.orgAddressCity.value,
@@ -146,17 +147,30 @@ export class NewMembershipComponent {
       PostalCode: this.orgAddressPostalCode.value,
     };
 
-    let org: CreateOrgPayload = {
+    const org: CreateOrgPayload = {
       Name: name,
       Address: address,
       Permissions: [],
     };
 
-    this._orgService.createOrg(org).subscribe({
+    const userId = this._authService.getUserId();
+
+    if (!userId) {
+      this.error = $localize`Must be authenticated in order to create an organization.`;
+      return;
+    }
+
+    const userCreateOrgPayload: UserCreateOrgPayload = {
+      UserId: userId,
+      Org: org,
+    };
+
+    this._membershipService.userCreateOrg(userCreateOrgPayload).subscribe({
       next: (value: any) => {
         this.error = '';
         this.loading = false;
         this._routingService.goToHome();
+        this._membershipService.readAllMemberships(userId).subscribe();
       },
       error: (error: any) => {
         this.loading = false;
