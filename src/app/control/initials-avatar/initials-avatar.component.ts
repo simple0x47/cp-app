@@ -1,8 +1,9 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnChanges, SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -11,7 +12,7 @@ import {
   templateUrl: './initials-avatar.component.html',
   styleUrls: ['./initials-avatar.component.css'],
 })
-export class InitialsAvatarComponent implements AfterViewInit {
+export class InitialsAvatarComponent implements AfterViewChecked {
   @Input()
   public text: string = '#';
 
@@ -46,7 +47,7 @@ export class InitialsAvatarComponent implements AfterViewInit {
     '#7f8c8d',
   ];
 
-  public ngAfterViewInit() {
+  public ngAfterViewChecked() {
     if (this.text.length == 0) {
       this.text = '#';
     }
