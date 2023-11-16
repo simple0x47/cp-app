@@ -13,9 +13,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RoutingModule } from '../routing/routing.module';
 import { MembershipApiModule } from '../membership-api/membership-api.module';
 import { OrgApiModule } from '../org-api/org-api.module';
+import {MembershipSelectorComponent} from "./membership-selector/membership-selector.component";
+import {
+  MembershipSelectorDialogComponent
+} from "./membership-selector/membership-selector-dialog/membership-selector-dialog.component";
+import {
+  MembershipSelectorListComponent
+} from "./membership-selector/membership-selector-list/membership-selector-list.component";
 
 @NgModule({
-  declarations: [NewMembershipComponent],
+  declarations: [NewMembershipComponent, MembershipSelectorComponent,
+    MembershipSelectorDialogComponent,
+    MembershipSelectorListComponent,],
   imports: [
     CommonModule,
     ControlModule,
@@ -31,5 +40,8 @@ import { OrgApiModule } from '../org-api/org-api.module';
     MembershipApiModule,
     OrgApiModule,
   ],
+  exports: [
+    MembershipSelectorComponent
+  ]
 })
 export class MembershipModule {}
