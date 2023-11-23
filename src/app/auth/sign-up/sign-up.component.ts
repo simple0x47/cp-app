@@ -1,13 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatRadioChange, MatRadioGroup } from '@angular/material/radio';
-import { AutocompleteSelectCountryProviderService } from 'src/app/control/autocomplete-select/autocomplete-select-country-provider.service';
-import { Address } from 'src/app/core/address';
-import { Store } from '@ngxs/store';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { RegisterUserPayload } from '../../auth-api/register-user-payload';
-import { CreateOrgPayload } from '../../auth-api/create-org-payload';
 import { AuthService } from '../../auth-api/auth.service';
-import { DataPair } from '../../control/autocomplete-select/data-pair';
 import { RoutingService } from '../../routing/routing.service';
 
 @Component({
