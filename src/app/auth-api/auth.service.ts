@@ -6,8 +6,6 @@ import { SuccessfulLogin } from 'src/app/auth-api/successful-login';
 import { environment } from 'src/environments/environment';
 import { LoginPayload } from './login-payload';
 import { LoginSuccess, Logout } from './auth.actions';
-import { RegisterCreatingOrgPayload } from './register-creating-org-payload';
-import { RegisterJoiningOrgPayload } from './register-joining-org-payload';
 import { AuthApiModule } from './auth-api.module';
 import {
   INVALID_GRANT,
@@ -17,12 +15,10 @@ import {
 import { ForgotPasswordPayload } from './forgot-password-payload';
 import { MembershipService } from '../membership-api/membership.service';
 import { RefreshTokenPayload } from './refresh-token-payload';
+import { RegisterUserPayload } from './register-user-payload';
 
 const LOGIN_ENDPOINT: string = '/api/Authentication/login';
-const REGISTER_CREATING_ORG_ENDPOINT: string =
-  '/api/Authentication/register-creating-org';
-const REGISTER_JOINING_ORG_ENDPOINT: string =
-  '/api/Authentication/sign-up-joining-org';
+const REGISTER_ENDPOINT: string = '/api/Authentication/register';
 const FORGOT_PASSWORD_ENDPOINT: string = '/api/Authentication/forgot-password';
 const REFRESH_TOKEN_ENDPOINT: string = '/api/Authentication/refresh-token';
 
@@ -54,20 +50,9 @@ export class AuthService {
     this._store.dispatch(new Logout());
   }
 
-  public registerCreatingOrg(
-    payload: RegisterCreatingOrgPayload,
-  ): Observable<SuccessfulLogin> {
+  public register(payload: RegisterUserPayload): Observable<SuccessfulLogin> {
     return this.commonLogin(
-      environment.apiUrl + REGISTER_CREATING_ORG_ENDPOINT,
-      JSON.stringify(payload),
-    );
-  }
-
-  public registerJoiningOrg(
-    payload: RegisterJoiningOrgPayload,
-  ): Observable<SuccessfulLogin> {
-    return this.commonLogin(
-      environment.apiUrl + REGISTER_JOINING_ORG_ENDPOINT,
+      environment.apiUrl + REGISTER_ENDPOINT,
       JSON.stringify(payload),
     );
   }
@@ -77,7 +62,7 @@ export class AuthService {
   }
 
   public getUserId(): string | null {
-    return this._store.selectSnapshot(state => state.auth.UserId);
+    return this._store.selectSnapshot((state) => state.auth.UserId);
   }
 
   public forgotPassword(payload: ForgotPasswordPayload): Observable<null> {
