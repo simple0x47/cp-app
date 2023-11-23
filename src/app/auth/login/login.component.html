@@ -1,7 +1,7 @@
 <div class="container">
   <form>
     <div class="login-box">
-      <h1 i18n>Welcome!</h1>
+      <h1 i18n class="login-box-title">Welcome!</h1>
       <mat-form-field appearance="fill" class="login-box-item">
         <mat-label i18n>Email</mat-label>
         <input (change)="onInputChange()" [formControl]="email" matInput required type="email">

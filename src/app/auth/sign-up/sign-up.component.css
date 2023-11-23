@@ -1,4 +1,6 @@
 .container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +12,10 @@
   padding: 32px;
   background-color: whitesmoke;
   width: min(100vw, 360px);
+}
+
+.login-box-title {
+  text-align: center;
 }
 
 .login-box-item {
